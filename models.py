@@ -23,8 +23,9 @@ class User(Base):
     )
 
     # 1-to-many relationship (one user has many posts)
-    # back_populates="author" lets us dig into user's posts thru "user.posts"
-    posts: Mapped[list[Post]] = relationship(back_populates="author")
+        # back_populates="author" lets us dig into user's posts thru "user.posts"
+        # cascade="all, delete-orphan" <-- this delete's a user and all its posts
+    posts: Mapped[list[Post]] = relationship(back_populates="author", cascade="all, delete-orphan")
 
     # if user has img, return img thru below file path or return a defualt img thru below file path
     @property
